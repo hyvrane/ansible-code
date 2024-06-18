@@ -17,7 +17,7 @@ pipeline{
                 "http://54.237.116.46:8081/artifactory/ansible/ansible-${BUILD_ID}.zip"'
             }
         }
-        stage('publish to ansible server'){
+         stage('publish to ansible server'){
             steps{
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'AnsibleServer', \
                 transfers: [sshTransfer(cleanRemote: false, excludes: '',\
@@ -28,6 +28,7 @@ pipeline{
                  useWorkspaceInPromotion: false, verbose: false)])
             }
         }
-             
+        
+                     
     }
 }
