@@ -1,11 +1,12 @@
 ---
-hosts: ws
-become: yes
-become_user: root
-ignore_errors: yes
-gather_facts: true
+- name: QA Playbook
+  hosts: ws
+  become: yes
+  become_user: root
+  ignore_errors: yes
+  gather_facts: true
 
-tasks:
+  tasks:
   - name: Install packages
     yum:
       state: present
