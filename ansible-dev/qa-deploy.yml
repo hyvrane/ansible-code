@@ -1,0 +1,31 @@
+---
+- name: QA Playbook
+  hosts: ws
+  become: yes
+  become_user: root
+  ignore_errors: yes
+  gather_facts: true
+
+  tasks:
+    - name: Delete aold artifacts
+      file:
+        path: /opt/qa/spg/*.jar
+        state: absent
+
+    - name: Get the PID
+      shell: lsof -i :8082
+      register: pid_output
+
+  - name: Kill running app      
+      shell: kill -9 pid_output.stdout  
+      when: pid_output.stdout != ''
+
+  - name: Download new artifact
+    get_url: 
+      url:  "http://54.237.116.46:8081/artifactory/geolocation/bio_14.jar"
+      dest:  /opt/qa/spg/bioMedical.jar
+      url_username:  admin
+      url_password: password
+
+  - name: Run the app
+    shell: nohup java -jar /opt/qa/spg/*.jar > /opt/qa/spg.log 2>&1 &  
