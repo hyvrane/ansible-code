@@ -14,9 +14,10 @@
     - name: Get the PID
       shell: lsof -i :8082
       register: pid_output
+      ignore_errors: yes
 
     - name: Kill running app
-      shell: kill -9 {{ pid_output.stdout }}
+      shell: "kill -9 {{ pid_output.stdout }}"
       when: pid_output.stdout is defined and pid_output.stdout!= ''
 
     - name: Download new artifact
