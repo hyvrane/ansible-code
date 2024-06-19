@@ -30,7 +30,7 @@
 
     - name: Download new artifact
       get_url:
-        url: "http://54.237.116.46:8081/artifactory/geolocation/bio_14.jar"
+        url: http://34.201.161.49:8081/artifactory/geolocation/geo/bio_17.jar
         dest: /opt/qa/spg/bioMedical.jar
         url_username: admin
         url_password: password
