@@ -15,6 +15,14 @@
       shell: lsof -i :8082
       register: pid_output
       ignore_errors: yes
+      tags:
+        - a
+
+    - name: Print pid_output
+      debug:
+        var: pid_output
+      tags:
+        - b    
 
     - name: Kill running app
       shell: "kill -9 {{ pid_output.stdout }}"
